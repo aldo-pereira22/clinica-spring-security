@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/u/**").hasAuthority("ADMIN")
 			
 //			acessos privados medicos
-			.antMatchers("/medicos/**").hasAuthority("MEDICOS")
+			.antMatchers("/medicos/**").hasAuthority("MEDICO")
 			.anyRequest().authenticated()
 			.and()
 				.formLogin()
@@ -39,7 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 			.and()
 				.logout()
-				.logoutSuccessUrl("/");
+				.logoutSuccessUrl("/")
+			.and()
+				.exceptionHandling()
+				.accessDeniedPage("/acesso-negado")
+				;
 	}
 
 	@Override

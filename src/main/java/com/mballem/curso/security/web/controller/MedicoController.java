@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mballem.curso.security.domain.Medico;
 
 @Controller
-@RequestMapping("medicos")
+@RequestMapping("/medicos")
 public class MedicoController {
 
 //	Abrir página de dados pessoais de medicos pelo Medico
