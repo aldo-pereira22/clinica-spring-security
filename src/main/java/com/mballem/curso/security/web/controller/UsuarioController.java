@@ -69,16 +69,22 @@ public class UsuarioController {
 		}
 		return "redirect:/u/novo/cadastro/usuario";
 	}
-	
-	
 
-
-	//	Pre-edicção de credenciais de usuários
+	// Pre-edicção de credenciais de usuários
 	@GetMapping("/editar/credenciais/usuario/{id}")
 	public ModelAndView editarCredenciais(@PathVariable("id") Long id) {
 
 		return new ModelAndView("usuario/cadastro", "usuario", service.buscarPorId(id));
 	}
-	
-	
+
+	@GetMapping("/editar/dados/usuario/{id}/perfis/{perfis}")
+	public ModelAndView preEditarCadastroDadosPessoais(@PathVariable("id") Long usuarioId,
+			@PathVariable("perfis") Long[] perfisId) {
+		
+		Usuario us = new Usuario();
+		
+		return new ModelAndView("redirect:/u/lista");
+
+	}
+
 }
