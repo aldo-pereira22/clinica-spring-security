@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mballem.curso.security.domain.Perfil;
+import com.mballem.curso.security.domain.PerfilTipo;
 import com.mballem.curso.security.domain.Usuario;
 import com.mballem.curso.security.service.UsuarioService;
 
@@ -82,9 +83,38 @@ public class UsuarioController {
 			@PathVariable("perfis") Long[] perfisId) {
 		
 		Usuario us = new Usuario();
+		if(us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod())) && 
+				!us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))
+				){
+			return new ModelAndView("usaurio/cadastro", "usuario", us);
+		}else if( us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod())) ) {
+			return new ModelAndView("especialidade/especialidade");			
+		}else if( us.getPerfis().contains( new Perfil( PerfilTipo.PACIENTE.getCod() ) ) ) {
+		
+			ModelAndView model = new ModelAndView("error");
+			
+			model.addObject("status",403);
+			model.addObject("error", "Area Restrita");
+			model.addObject("message", "Os dados do paciente são restritos a ele.");
+			
+		}
+		
+		
 		
 		return new ModelAndView("redirect:/u/lista");
 
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
