@@ -89,16 +89,17 @@ public class UsuarioController {
 		if(us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod())) && 
 				!us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))
 				){
-			return new ModelAndView("usaurio/cadastro", "usuario", us);
+			return new ModelAndView("usuario/cadastro", "usuario", us);
 		}else if( us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod())) ) {
 			return new ModelAndView("especialidade/especialidade");			
 		}else if( us.getPerfis().contains( new Perfil( PerfilTipo.PACIENTE.getCod() ) ) ) {
 		
-			ModelAndView model = new ModelAndView("error");
-			
+			ModelAndView model = new ModelAndView("error");			
 			model.addObject("status",403);
 			model.addObject("error", "Area Restrita");
 			model.addObject("message", "Os dados do paciente são restritos a ele.");
+			
+			return model;
 			
 		}
 		
