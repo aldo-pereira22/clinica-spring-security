@@ -81,44 +81,29 @@ public class UsuarioController {
 	@GetMapping("/editar/dados/usuario/{id}/perfis/{perfis}")
 	public ModelAndView preEditarCadastroDadosPessoais(@PathVariable("id") Long usuarioId,
 			@PathVariable("perfis") Long[] perfisId) {
-		
-		
-		
+
 		Usuario us = service.buscarPorIdEPerfis(usuarioId, perfisId);
+
+		if (us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod()))
+				&& !us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))) {
+			
 		
-		if(us.getPerfis().contains(new Perfil(PerfilTipo.ADMIN.getCod())) && 
-				!us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))
-				){
 			return new ModelAndView("usuario/cadastro", "usuario", us);
-		}else if( us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod())) ) {
-			return new ModelAndView("especialidade/especialidade");			
-		}else if( us.getPerfis().contains( new Perfil( PerfilTipo.PACIENTE.getCod() ) ) ) {
 		
-			ModelAndView model = new ModelAndView("error");			
-			model.addObject("status",403);
+		} else if (us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))) {
+			return new ModelAndView("especialidade/especialidade");
+		} else if (us.getPerfis().contains(new Perfil(PerfilTipo.PACIENTE.getCod()))) {
+
+			ModelAndView model = new ModelAndView("error");
+			model.addObject("status", 403);
 			model.addObject("error", "Area Restrita");
 			model.addObject("message", "Os dados do paciente são restritos a ele.");
-			
 			return model;
-			
+
 		}
-		
-		
-		
+
 		return new ModelAndView("redirect:/u/lista");
 
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
