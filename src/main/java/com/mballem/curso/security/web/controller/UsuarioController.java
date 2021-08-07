@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mballem.curso.security.domain.Medico;
 import com.mballem.curso.security.domain.Perfil;
 import com.mballem.curso.security.domain.PerfilTipo;
 import com.mballem.curso.security.domain.Usuario;
 import com.mballem.curso.security.service.UsuarioService;
+import com.mballem.curso.securitys.service.MedicoService;
 
 @Controller
 @RequestMapping("u")
@@ -27,6 +29,9 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioService service;
+	
+	@Autowired
+	private MedicoService medicoService;
 
 //	Abrir cadastro de usuários (medico/admin/paciente)
 	@GetMapping("/novo/cadastro/usuario")
@@ -91,6 +96,8 @@ public class UsuarioController {
 			return new ModelAndView("usuario/cadastro", "usuario", us);
 		
 		} else if (us.getPerfis().contains(new Perfil(PerfilTipo.MEDICO.getCod()))) {
+			Medico medico = medicoService.buscarPorUsuarioId(usuarioId);
+			
 			return new ModelAndView("especialidade/especialidade");
 		} else if (us.getPerfis().contains(new Perfil(PerfilTipo.PACIENTE.getCod()))) {
 
