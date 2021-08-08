@@ -20,8 +20,8 @@ import com.mballem.curso.security.domain.Medico;
 import com.mballem.curso.security.domain.Perfil;
 import com.mballem.curso.security.domain.PerfilTipo;
 import com.mballem.curso.security.domain.Usuario;
+import com.mballem.curso.security.service.MedicoService;
 import com.mballem.curso.security.service.UsuarioService;
-import com.mballem.curso.securitys.service.MedicoService;
 
 @Controller
 @RequestMapping("u")

@@ -1,11 +1,11 @@
-package com.mballem.curso.securitys.service;
+package com.mballem.curso.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mballem.curso.security.domain.Medico;
-import com.mballem.curso.securitys.repository.MedicoRepository;
+import com.mballem.curso.security.repository.MedicoRepository;
 
 @Service
 public class MedicoService {
