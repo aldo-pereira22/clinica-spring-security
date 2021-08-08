@@ -21,20 +21,25 @@ public class MedicoController {
 
 	@Autowired
 	private MedicoService service;
-
+	
 	@Autowired
 	private UsuarioService usuarioService;
-
+	
 	
 //	Abrir página de dados pessoais de medicos pelo Medico
 	@GetMapping({"/dados"})
-	public String abrirPorMedico(Medico medico, ModelMap model) {
+	public String abrirPorMedico(Medico medico, ModelMap model, @AuthenticationPrincipal User user) {
+		if(medico.hasNotId()) {
+			medico = service.buscarPorEmail(user.getUsername());
+			model.addAttribute("medico", medico);
+		}
 		return "medico/cadastro";
 	}
 	
 //	Salvar medico
 	@PostMapping({"/salvar"})
 	public String salvar(Medico medico, RedirectAttributes attr, @AuthenticationPrincipal User user) {
+		
 		if(medico.hasNotId() && medico.getUsuario().hasNotId()) {
 			Usuario usuario = usuarioService.buscarPorEmail(user.getUsername());
 			medico.setUsuario(usuario);
